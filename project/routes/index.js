@@ -2,104 +2,106 @@ const express = require('express');
 
 const router = express.Router();
 
-const contacts = [
-    { id: 1, name: 'John Doe', email: 'john.doe@example.com' },
-    { id: 2, name: 'Jane Smith', email: 'jane.smith@example.com' },
-    { id: 3, name: 'Emily Johnson', email: 'emily.johnson@example.com' },
-    { id: 4, name: 'Aarav Patel', email: 'aarav.patel@example.com' },
-    { id: 5, name: 'Liu Wei', email: 'liu.wei@example.com' },
-    { id: 6, name: 'Fatima Zahra', email: 'fatima.zahra@example.com' },
-    { id: 7, name: 'Carlos Hernández', email: 'carlos.hernandez@example.com' },
-    { id: 8, name: 'Olivia Kim', email: 'olivia.kim@example.com' },
-    { id: 9, name: 'Kwame Nkrumah', email: 'kwame.nkrumah@example.com' },
-    { id: 10, name: 'Chen Yu', email: 'chen.yu@example.com' },
+const laptops = [
+    { id: 1, name: 'MSI Pulse', brand: 'MSI', price: 'R2000.00' },
+    { id: 2, name: 'Dell Latitude', brand: 'Dell', price: 'R2000.00' },
+    { id: 3, name: 'Lenovo IdeaPad', brand: 'Lenovo', price: 'R2000.00' },
+    { id: 4, name: 'Apple MacBook Pro', brand: 'Apple', price: 'R2000.00' },
+    { id: 5, name: 'Asus Ryzen 3', brand: 'Asus', price: 'R2000.00' },
+    { id: 6, name: 'Acer Aspire', brand: 'Acer', price: 'R2000.00' },
+    { id: 7, name: 'Huawei MateBook', brand: 'Huawei', price: 'R2000.00' },
+    { id: 8, name: 'HP Spectre', brand: 'HP', price: 'R2000.00' },
+    { id: 9, name: 'Microsoft Studio 2', brand: 'Microsoft', price: 'R2000.00' },
+    { id: 10, name: 'Lenovo ThinkPad', brand: 'chen.yu@example.com', price: 'R2000.00' },
 ];
 
-// GET /contacts
-router.get('/contacts', (req, res) => {
-    res.render('index', { action: '', contacts, contact: {} });
+// GET /laptops
+router.get('/laptops', (req, res) => {
+    res.render('index', { action: '', laptops, laptop: {} });
 });
 
-// GET /contacts/new
-router.get('/contacts/new', (req, res) => {
+// GET /laptops/new
+router.get('/laptops/new', (req, res) => {
     if (req.headers['hx-request']) {
-        res.render('form', { contact: {} });
+        res.render('form', { laptop: {} });
     } else {
-        res.render('index', { action: 'new', contacts, contact: {} });
+        res.render('index', { action: 'new', laptops, laptop: {} });
     }
 });
 
-// GET /contacts/1
-router.get('/contacts/:id', (req, res) => {
+// GET /laptops/1
+router.get('/laptops/:id', (req, res) => {
     const { id } = req.params;
-    const contact = contacts.find((c) => c.id === Number(id));
+    const laptop = laptops.find((c) => c.id === Number(id));
 
     if (req.headers['hx-request']) {
-        res.render('contact', { contact });
+        res.render('laptop', { laptop });
     } else {
-        res.render('index', { action: 'show', contacts, contact });
+        res.render('index', { action: 'show', laptops, laptop });
     }
 });
 
-// GET /contacts/1/edit
-router.get('/contacts/:id/edit', (req, res) => {
+// GET /laptops/1/edit
+router.get('/laptops/:id/edit', (req, res) => {
     const { id } = req.params;
-    const contact = contacts.find((c) => c.id === Number(id));
+    const laptop = laptops.find((c) => c.id === Number(id));
 
     if (req.headers['hx-request']) {
-        res.render('form', { contact });
+        res.render('form', { laptop });
     } else {
-        res.render('index', { action: 'edit', contacts, contact });
+        res.render('index', { action: 'edit', laptops, laptop });
     }
 });
 
-// POST /contacts
-router.post('/contacts', (req, res) => {
-    const newContact = {
-        id: contacts.length + 1,
+// POST /laptops
+router.post('/laptops', (req, res) => {
+    const newlaptop = {
+        id: laptops.length + 1,
         name: req.body.name,
-        email: req.body.email,
+        brand: req.body.brand,
+        price: req.body.price,
     };
 
-    contacts.push(newContact);
+    laptops.push(newlaptop);
 
     if (req.headers['hx-request']) {
-        res.render('sidebar', { contacts }, (err, sidebarHtml) => {
+        res.render('sidebar', { laptops }, (err, sidebarHtml) => {
             const html = `
         <main id="content" hx-swap-oob="afterbegin">
-          <p class="flash">Contact was successfully added!</p>
+          <p class="flash">laptop was successfully added!</p>
         </main>
         ${sidebarHtml}
       `;
             res.send(html);
         });
     } else {
-        res.render('index', { action: 'new', contacts, contact: {} });
+        res.render('index', { action: 'new', laptops, laptop: {} });
     }
 });
 
-// PUT /contacts/1
+// PUT /laptops/1
 router.put('/update/:id', (req, res) => {
     const { id } = req.params;
 
-    const newContact = {
+    const newlaptop = {
         id: Number(id),
         name: req.body.name,
-        email: req.body.email,
+        brand: req.body.brand,
+        price: req.body.price,
     };
 
-    const index = contacts.findIndex((c) => c.id === Number(id));
+    const index = laptops.findIndex((c) => c.id === Number(id));
 
-    if (index !== -1) contacts[index] = newContact;
+    if (index !== -1) laptops[index] = newlaptop;
 
     if (req.headers['hx-request']) {
-        res.render('sidebar', { contacts }, (err, sidebarHtml) => {
-            res.render('contact', { contact: contacts[index] }, (err, contactHTML) => {
+        res.render('sidebar', { laptops }, (err, sidebarHtml) => {
+            res.render('laptop', { laptop: laptops[index] }, (err, laptopHTML) => {
                 const html = `
           ${sidebarHtml}
           <main id="content" hx-swap-oob="true">
-            <p class="flash">Contact was successfully updated!</p>
-            ${contactHTML}
+            <p class="flash">laptop was successfully updated!</p>
+            ${laptopHTML}
           </main>
         `;
 
@@ -107,28 +109,28 @@ router.put('/update/:id', (req, res) => {
             });
         });
     } else {
-        res.redirect(`/contacts/${index + 1}`);
+        res.redirect(`/laptops/${index + 1}`);
     }
 });
 
-// DELETE /contacts/1
+// DELETE /laptops/1
 router.delete('/delete/:id', (req, res) => {
     const { id } = req.params;
-    const index = contacts.findIndex((c) => c.id === Number(id));
+    const index = laptops.findIndex((c) => c.id === Number(id));
 
-    if (index !== -1) contacts.splice(index, 1);
+    if (index !== -1) laptops.splice(index, 1);
     if (req.headers['hx-request']) {
-        res.render('sidebar', { contacts }, (err, sidebarHtml) => {
+        res.render('sidebar', { laptops }, (err, sidebarHtml) => {
             const html = `
         <main id="content" hx-swap-oob="true">
-          <p class="flash">Contact was successfully deleted!</p>
+          <p class="flash">laptop was successfully deleted!</p>
         </main>
         ${sidebarHtml}
       `;
             res.send(html);
         });
     } else {
-        res.redirect('/contacts');
+        res.redirect('/laptops');
     }
 });
 

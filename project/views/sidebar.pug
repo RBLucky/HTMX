@@ -1,17 +1,16 @@
-ul.contact-list
-  each contact in contacts
+ul.laptop-list
+  each laptop in laptops
     li
       a(
-        href=`/contacts/${contact.id}`,
-        hx-get=`/contacts/${contact.id}`,
+        href=`/laptops/${laptop.id}`,
+        hx-get=`/laptops/${laptop.id}`,
         hx-target='#content'
         hx-push-url='true',
-      )= contact.name
+      )= laptop.name
 
 div.actions
-  a(
-    href='/contacts/new',
-    hx-get='/contacts/new',
+  button.btn.btn-outline-primary(
+    hx-get='/laptops/new',
     hx-target='#content',
     hx-push-url='true'
-  ) New Contact
+  ) Add New Laptop

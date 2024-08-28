@@ -1,0 +1,26 @@
+h2 #{laptop.name}
+
+p #[strong Name:] #{laptop.name}
+p #[strong Brand:] #{laptop.brand}
+p #[strong Price:] #{laptop.price}
+
+div.actions
+  // "Edit Laptop" button with Bootstrap success style and margin-left
+  a.btn.btn-outline-secondary(
+    href=`/laptops/${laptop.id}/edit`,
+    hx-get=`/laptops/${laptop.id}/edit`,
+    hx-push-url='true',
+    hx-target='#content',
+    style='margin-right: 10px;'
+  ) Edit Laptop
+
+  // "Delete Laptop" button with Bootstrap danger style and margin-right
+  form(method='POST', action=`/delete/${laptop.id}?_method=DELETE`, style='display: inline-block;')
+    a.btn.btn-outline-danger(
+      type='submit',
+      hx-delete=`/delete/${laptop.id}`,
+      hx-target='#sidebar',
+      hx-push-url='/laptops',
+      style='margin-left: 10px;'
+    ) Delete Laptop
+

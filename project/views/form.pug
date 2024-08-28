@@ -1,22 +1,25 @@
-- isEditing = () => !(Object.keys(contact).length === 0);
+- isEditing = () => !(Object.keys(laptop).length === 0);
 
-h2=isEditing() ? "Edit Contact" : "New Contact"
+h2=isEditing() ? "Edit laptop" : "New laptop"
 
 form(
-  action=isEditing() ? `/update/${contact.id}?_method=PUT` : '/contacts',
+  action=isEditing() ? `/update/${laptop.id}?_method=PUT` : '/laptops',
   method='POST',
 
-  hx-post=isEditing() ? false : '/contacts',
-  hx-put=isEditing() ? `/update/${contact.id}` : false,
+  hx-post=isEditing() ? false : '/laptops',
+  hx-put=isEditing() ? `/update/${laptop.id}` : false,
   hx-target='#sidebar',
-  hx-push-url=isEditing() ? `/contacts/${contact.id}` : false
+  hx-push-url=isEditing() ? `/laptops/${laptop.id}` : false
   hx-on::after-request='if(event.detail.successful) this.reset()',
 )
   label(for='name') Name:
-  input#name(type='text', name='name', required, value=contact.name)
+  input#name(type='text', name='name', required, value=laptop.name)
 
-  label(for='email') Email:
-  input#email(type='email', name='email', required, value=contact.email)
+  label(for='brand') Brand:
+  input#brand(type='text', name='brand', required, value=laptop.brand)
+
+  label(for='price') Price:
+  input#price(type='text', name='price', required, value=laptop.price)
 
   div.actions
     button(type='submit') Submit
