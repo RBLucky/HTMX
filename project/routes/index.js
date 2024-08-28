@@ -3,16 +3,16 @@ const express = require('express');
 const router = express.Router();
 
 const laptops = [
-    { id: 1, name: 'MSI Pulse', brand: 'MSI', price: 'R2000.00' },
-    { id: 2, name: 'Dell Latitude', brand: 'Dell', price: 'R2000.00' },
-    { id: 3, name: 'Lenovo IdeaPad', brand: 'Lenovo', price: 'R2000.00' },
-    { id: 4, name: 'Apple MacBook Pro', brand: 'Apple', price: 'R2000.00' },
-    { id: 5, name: 'Asus Ryzen 3', brand: 'Asus', price: 'R2000.00' },
-    { id: 6, name: 'Acer Aspire', brand: 'Acer', price: 'R2000.00' },
-    { id: 7, name: 'Huawei MateBook', brand: 'Huawei', price: 'R2000.00' },
-    { id: 8, name: 'HP Spectre', brand: 'HP', price: 'R2000.00' },
-    { id: 9, name: 'Microsoft Studio 2', brand: 'Microsoft', price: 'R2000.00' },
-    { id: 10, name: 'Lenovo ThinkPad', brand: 'chen.yu@example.com', price: 'R2000.00' },
+    { id: 1, name: 'MSI Pulse', brand: 'MSI', price: 'R2000.00', quantity: 5 },
+    { id: 2, name: 'Dell Latitude', brand: 'Dell', price: 'R2000.00', quantity: 15 },
+    { id: 3, name: 'Lenovo IdeaPad', brand: 'Lenovo', price: 'R2000.00', quantity: 3 },
+    { id: 4, name: 'Apple MacBook Pro', brand: 'Apple', price: 'R2000.00', quantity: 8 },
+    { id: 5, name: 'Asus Ryzen 3', brand: 'Asus', price: 'R2000.00', quantity: 17 },
+    { id: 6, name: 'Acer Aspire', brand: 'Acer', price: 'R2000.00', quantity: 0 },
+    { id: 7, name: 'Huawei MateBook', brand: 'Huawei', price: 'R2000.00', quantity: 2 },
+    { id: 8, name: 'HP Spectre', brand: 'HP', price: 'R2000.00', quantity: 18 },
+    { id: 9, name: 'Microsoft Studio 2', brand: 'Microsoft', price: 'R2000.00', quantity: 20 },
+    { id: 10, name: 'Lenovo ThinkPad', brand: 'chen.yu@example.com', price: 'R2000.00', quantity: 1 },
 ];
 
 // GET /laptops
@@ -60,6 +60,7 @@ router.post('/laptops', (req, res) => {
         name: req.body.name,
         brand: req.body.brand,
         price: req.body.price,
+        quantity: req.body.quantity,
     };
 
     laptops.push(newlaptop);
@@ -88,6 +89,7 @@ router.put('/update/:id', (req, res) => {
         name: req.body.name,
         brand: req.body.brand,
         price: req.body.price,
+        quantity: req.body.quantity,
     };
 
     const index = laptops.findIndex((c) => c.id === Number(id));
