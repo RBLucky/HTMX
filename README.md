@@ -8,5 +8,6 @@ These include:
 * A Search Widget that utilizes data fetched from an API
 * An email address validator
 * An updateable user profile
+* A Stock Manager CRUD App
 
 See it all happen on [my HTMX YouTube Playslist](https://www.youtube.com/playlist?list=PLqZ48CLs4vPy143P22LkRDWljYLn46Pqa)
